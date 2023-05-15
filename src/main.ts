@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import * as cookieParser from 'cookie-parser';
+import * as cookieParser from 'cookie-parser'
+import * as cors from 'cors'
 
 const PORT = process.env.PORT || 8080
 
@@ -9,7 +10,16 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule)
 
     app.use(cookieParser())
-    app.enableCors()
+    app.use(
+        cors({
+            origin: 'http://localhost:5173',
+            credentials: true,
+        }),
+        cors({
+            origin: 'http://localhost:5174',
+            credentials: true,
+        }),
+    )
 
     const config = new DocumentBuilder()
         .setTitle('Inner API for Mealmapper')
