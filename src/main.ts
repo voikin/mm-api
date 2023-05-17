@@ -10,16 +10,6 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule)
 
     app.use(cookieParser())
-    app.use(
-        cors({
-            origin: 'http://localhost:5173',
-            credentials: true,
-        }),
-        cors({
-            origin: 'http://localhost:5174',
-            credentials: true,
-        }),
-    )
 
     const config = new DocumentBuilder()
         .setTitle('Inner API for Mealmapper')
