@@ -11,5 +11,5 @@ export class GetUserInfoDto {
         example: ['parameters', 'preferences'],
         description: 'Запрашиваемые поля',
     })
-    readonly fields: string[]
+    readonly fields?: string[]
 }

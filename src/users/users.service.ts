@@ -45,8 +45,11 @@ export class UsersService {
         return this.userModel.findOne(query)
     }
 
-    async existUser(userDto: UserDto): Promise<any> {
-        return this.userModel.exists({ email: userDto.email })
+    async existUser(userDto: UserDto): Promise<Boolean> {
+        const count = await this.userModel.countDocuments({
+            email: userDto.email,
+        })
+        return count > 0
     }
 
     async activate(activationLink: string) {
