@@ -21,8 +21,9 @@ export class AuthService {
     ) {}
 
     async signup(userDto: UserDto) {
-        const userExist = await this.usersService.existUser(userDto)
-        if (userExist) {
+        const user = await this.usersService.existUser(userDto)
+        if (user) {
+            console.log(user)
             throw new BadRequestException('this email is already exist')
         }
         const hashPassword = await bcrypt.hash(userDto.password, 5)
