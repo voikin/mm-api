@@ -23,7 +23,6 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { Document } from 'mongoose';
-import { Ration } from 'src/rations/models/Ration';
 export type UserDocument = User & Document;
 export declare class User {
     email: string;
@@ -31,7 +30,7 @@ export declare class User {
     isActivated: boolean;
     activationLink: string;
     refreshToken: string;
-    triedRations: string[] | Ration[];
+    triedRations: any;
     preferences: string[];
     age: number;
     height: number;

@@ -35,7 +35,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: true,
-        description: 'user has been activated or not'
+        description: 'user has been activated or not',
     }),
     (0, class_validator_1.IsBoolean)({ message: 'isActivated must be boolean type' }),
     (0, mongoose_1.Prop)({ default: false }),
@@ -44,7 +44,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'njq9Na8MVPx5X8/jAY/vWx77RI+Rx7ZQ14UOfQ/IqJ6KVSTcljpR1+1inNoQleODm7pvZv49Yt8oWt47SUpmzQ',
-        description: 'unique link to verify user'
+        description: 'unique link to verify user',
     }),
     (0, class_validator_1.IsString)({ message: 'activation link must be string type' }),
     (0, mongoose_1.Prop)(),
@@ -59,8 +59,8 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "refreshToken", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
-    __metadata("design:type", Array)
+    (0, mongoose_1.Prop)({ type: [{ rationId: String, date: Date }] }),
+    __metadata("design:type", Object)
 ], User.prototype, "triedRations", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),

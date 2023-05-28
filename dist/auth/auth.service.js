@@ -31,7 +31,7 @@ let AuthService = class AuthService {
         }
         const hashPassword = await bcrypt.hash(userDto.password, 5);
         const activationLink = uuid.v4();
-        const newUser = await this.usersService.create(Object.assign(Object.assign({}, userDto), { activationLink, password: hashPassword }));
+        const newUser = await this.usersService.create(Object.assign(Object.assign({}, userDto), { activationLink, sex: userDto.sex === 'male', password: hashPassword }));
         return this.mailService.sendActivationMail(newUser.email, `${process.env.API_URL}/auth/activate/${activationLink}`);
     }
     async login(userDto) {

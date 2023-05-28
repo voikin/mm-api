@@ -35,10 +35,13 @@ let RationsService = class RationsService {
         const { weight, height, age, sex } = await this.usersService.findByID(id);
         let calories;
         if (sex) {
-            calories = (88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age)) * 1.375;
+            calories =
+                (88.362 + 13.397 * weight + 4.799 * height - 5.677 * age) *
+                    1.375;
         }
         else {
-            calories = (447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age)) * 1.375;
+            calories =
+                (447.593 + 9.247 * weight + 3.098 * height - 4.33 * age) * 1.375;
         }
         return fetch(`http://generator:8000/generateRation/${calories}`).then((res) => res.json());
     }
@@ -48,12 +51,18 @@ let RationsService = class RationsService {
     async getFullUserInfo(id) {
         const userFromDB = await this.usersService.findByID(id);
         const triedRations = await this.getRationsByIds(userFromDB.triedRations);
-        return Object.assign(Object.assign({}, userFromDB), { triedRations: triedRations });
+        for (let i = 0; i < triedRations.length; i++) {
+            userFromDB.triedRations[i] = Object.assign(userFromDB.triedRations[i], triedRations[i]);
+        }
+        return userFromDB;
     }
     async confirmRation(id, ration) {
         const rationId = await this.saveSelectedRation(ration);
         const user = await this.usersService.findByID(id);
-        user.triedRations.push(rationId);
+        user.triedRations.push({
+            rationId: rationId,
+            date: new Date(),
+        });
         return user.save();
     }
 };
