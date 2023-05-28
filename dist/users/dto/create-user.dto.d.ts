@@ -4,6 +4,6 @@ export declare class UserDto {
     readonly age: number;
     readonly weight: number;
     readonly height: number;
-    readonly sex: boolean;
+    readonly sex: string | boolean;
     activationLink: string;
 }

@@ -31,6 +31,7 @@ export class AuthService {
         const newUser = await this.usersService.create({
             ...userDto,
             activationLink,
+            sex: userDto.sex === 'male',
             password: hashPassword,
         })
         return this.mailService.sendActivationMail(

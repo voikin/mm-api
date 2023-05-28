@@ -1,5 +1,6 @@
 export declare class Ration {
     id?: string;
+    date?: Date;
     monday: Recipe[];
     tuesday: Recipe[];
     wednesday: Recipe[];

@@ -23,7 +23,7 @@ export class UserDto {
 
     readonly height: number
 
-    readonly sex: boolean
+    readonly sex: string | boolean
     
     activationLink: string
 }
