@@ -52,7 +52,7 @@ export class UsersController {
         @Body() updateDto: UserDto,
     ): Promise<UserDocument> {
         const userId = req.user.id
-        console.log(req);
+        console.log(req)
         return this.usersService.update(userId, updateDto)
     }
 
@@ -63,17 +63,21 @@ export class UsersController {
         return this.usersService.delete(id)
     }
 
+    @ApiOperation({ summary: 'Добавление предпочтения' })
+    @ApiResponse({ status: 201, type: User })
     @Put('preference/:pref')
     @UseGuards(AccessTokenGuard)
     async addPreference(@Request() req, @Param('pref') preference: string) {
-        const {id} = req.user
+        const { id } = req.user
         return this.usersService.addPreference(id, preference)
     }
 
+    @ApiOperation({ summary: 'Удаление предпочтения' })
+    @ApiResponse({ status: 200, type: User })
     @Delete('preference/:pref')
     @UseGuards(AccessTokenGuard)
     async removePreference(@Request() req, @Param('pref') preference: string) {
-        const {id} = req.user
+        const { id } = req.user
         return this.usersService.removePreference(id, preference)
     }
 }

@@ -96,6 +96,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "delete", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Добавление предпочтения' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: user_schema_1.User }),
     (0, common_1.Put)('preference/:pref'),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     __param(0, (0, common_1.Request)()),
@@ -105,6 +107,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "addPreference", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Удаление предпочтения' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
     (0, common_1.Delete)('preference/:pref'),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     __param(0, (0, common_1.Request)()),

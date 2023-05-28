@@ -61,7 +61,7 @@ let RationsService = class RationsService {
         const user = await this.usersService.findByID(id);
         user.triedRations.push({
             rationId: rationId,
-            date: new Date(),
+            date: Date.now(),
         });
         return user.save();
     }
