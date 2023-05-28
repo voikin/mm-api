@@ -59,26 +59,58 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "refreshToken", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: [
+            {
+                id: '64736521bba8fc14a120c574',
+                date: Date.now()
+            }, {
+                id: '64736521bba8fc142b20c4',
+                date: Date.now()
+            }
+        ],
+        description: 'Массив попробованных рационов (id + дата добавления)'
+    }),
     (0, mongoose_1.Prop)({ type: [{ rationId: String, date: Date }] }),
     __metadata("design:type", Object)
 ], User.prototype, "triedRations", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: ['молоко', 'помидоры', 'сыр'],
+        description: 'Массив избранных предпочтений',
+    }),
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Array)
 ], User.prototype, "preferences", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 20,
+        description: 'Возраст пользователя'
+    }),
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Number)
 ], User.prototype, "age", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 185,
+        description: 'Рост пользователя'
+    }),
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Number)
 ], User.prototype, "height", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 75,
+        description: 'Вес пользователя'
+    }),
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Number)
 ], User.prototype, "weight", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: true,
+        description: 'Пол пользователя'
+    }),
     (0, mongoose_1.Prop)(),
     __metadata("design:type", Boolean)
 ], User.prototype, "sex", void 0);

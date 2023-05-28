@@ -48,21 +48,52 @@ export class User {
     @Prop()
     refreshToken: string
 
+    @ApiProperty({
+        example: [
+            {
+                id: '64736521bba8fc14a120c574',
+                date: Date.now()
+            }, {
+                id: '64736521bba8fc142b20c4',
+                date: Date.now()
+            }],
+        description: 'Массив попробованных рационов (id + дата добавления)'
+    })
     @Prop({ type: [{ rationId: String, date: Date }] })
     triedRations: any
 
+    @ApiProperty({
+        example: ['молоко', 'помидоры', 'сыр'],
+        description: 'Массив избранных предпочтений',
+    })
     @Prop()
     preferences: string[]
 
+    @ApiProperty({
+        example: 20,
+        description: 'Возраст пользователя'
+    })
     @Prop()
     age: number
 
+    @ApiProperty({
+        example: 185,
+        description: 'Рост пользователя'
+    })
     @Prop()
     height: number
 
+    @ApiProperty({
+        example: 75,
+        description: 'Вес пользователя'
+    })
     @Prop()
     weight: number
 
+    @ApiProperty({
+        example: true,
+        description: 'Пол пользователя'
+    })
     @Prop()
     sex: boolean
 }

@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const Ration_1 = require("./models/Ration");
 const rations_service_1 = require("./rations.service");
 const accessToken_guard_1 = require("../auth/accessToken.guard");
+const swagger_1 = require("@nestjs/swagger");
+const user_schema_1 = require("../users/schemas/user.schema");
 let RationsController = class RationsController {
     constructor(rationsService) {
         this.rationsService = rationsService;
@@ -38,6 +40,8 @@ let RationsController = class RationsController {
     }
 };
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Генерация ленты рационов' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: [Ration_1.Ration] }),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Get)('feed'),
     __metadata("design:type", Function),
@@ -45,6 +49,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RationsController.prototype, "getFeed", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Генерация рациона' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: Ration_1.Ration }),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Get)('generate'),
     __param(0, (0, common_1.Request)()),
@@ -53,6 +59,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RationsController.prototype, "generateRation", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Выдача информации о юзере с рационами' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: user_schema_1.User }),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Get)('user'),
     __param(0, (0, common_1.Request)()),
@@ -61,6 +69,8 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RationsController.prototype, "getFullInfo", null);
 __decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Подтверждение' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: [Ration_1.Ration] }),
     (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Post)('confirm'),
     __param(0, (0, common_1.Request)()),
@@ -70,6 +80,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RationsController.prototype, "confirmRation", null);
 RationsController = __decorate([
+    (0, swagger_1.ApiTags)('Взаимодействие с рационами'),
     (0, common_1.Controller)('rations'),
     __metadata("design:paramtypes", [rations_service_1.RationsService])
 ], RationsController);

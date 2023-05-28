@@ -17,7 +17,7 @@ class UserDto {
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'JohnDoe@mail.com',
-        description: 'user`s email',
+        description: 'Электронный адрес пользователя',
     }),
     (0, class_validator_1.IsEmail)({}, { message: 'invalid email' }),
     __metadata("design:type", String)
@@ -25,11 +25,39 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'qwerty123',
-        description: 'Users`s password',
+        description: 'Пароль пользователя',
     }),
     (0, class_validator_1.IsString)({ message: 'password must be string type' }),
     (0, class_validator_1.Length)(6, 20, { message: 'password must be in between 6 and 20 symbols' }),
     __metadata("design:type", String)
 ], UserDto.prototype, "password", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 20,
+        description: 'Возраст пользователя'
+    }),
+    __metadata("design:type", Number)
+], UserDto.prototype, "age", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 75,
+        description: 'Вес пользователя'
+    }),
+    __metadata("design:type", Number)
+], UserDto.prototype, "weight", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 185,
+        description: 'Рост пользователя'
+    }),
+    __metadata("design:type", Number)
+], UserDto.prototype, "height", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'male',
+        description: 'Пол пользователя'
+    }),
+    __metadata("design:type", Object)
+], UserDto.prototype, "sex", void 0);
 exports.UserDto = UserDto;
 //# sourceMappingURL=create-user.dto.js.map
