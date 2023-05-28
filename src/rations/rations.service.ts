@@ -43,8 +43,12 @@ export class RationsService {
         )
     }
 
-    async getProducts(): Promise<Product[]> {
-        return fetch('http://generator:8000/products').then((res) => res.json())
+    async getProducts(id: string): Promise<Product[]> {
+        const user = await this.usersService.findByID(id)
+        const products = await fetch('http://generator:8000/products').then(
+            (res) => res.json(),
+        )
+        return products.filter((product) => !user.preferences.includes(product))
     }
 
     async getFullUserInfo(id: string): Promise<User> {
