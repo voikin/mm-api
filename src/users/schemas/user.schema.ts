@@ -48,7 +48,7 @@ export class User {
     refreshToken: string
 
     @Prop()
-    triedRations: string[] | Ration[]
+    triedRations: any
 
     @Prop()
     preferences: string[]
@@ -64,6 +64,11 @@ export class User {
 
     @Prop()
     sex: boolean
+}
+
+export class TriedRation {
+    rationId: string
+    date: Date
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
