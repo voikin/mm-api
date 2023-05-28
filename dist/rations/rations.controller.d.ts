@@ -8,5 +8,5 @@ export declare class RationsController {
     generateRation(req: any): Promise<Ration>;
     getFullInfo(req: any): Promise<User>;
     confirmRation(req: any, ration: Ration): Promise<User>;
-    getProducts(): Promise<Product[]>;
+    getProducts(req: any): Promise<Product[]>;
 }

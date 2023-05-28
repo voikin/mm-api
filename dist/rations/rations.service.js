@@ -52,8 +52,10 @@ let RationsService = class RationsService {
         }
         return fetch(`http://generator:8000/generateRation/${Math.floor(calories)}`).then((res) => res.json());
     }
-    async getProducts() {
-        return fetch('http://generator:8000/products').then((res) => res.json());
+    async getProducts(id) {
+        const user = await this.usersService.findByID(id);
+        const products = await fetch('http://generator:8000/products').then((res) => res.json());
+        return products.filter((product) => !user.preferences.includes(product));
     }
     async getFullUserInfo(id) {
         const user = await this.usersService.findByID(id);

@@ -38,8 +38,9 @@ let RationsController = class RationsController {
         const { id } = req.user;
         return this.rationsService.confirmRation(id, ration);
     }
-    async getProducts() {
-        return this.rationsService.getProducts();
+    async getProducts(req) {
+        const { id } = req.user;
+        return this.rationsService.getProducts(id);
     }
 };
 __decorate([
@@ -85,9 +86,11 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Выдача всех продуктов' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: [Ration_1.Product] }),
+    (0, common_1.UseGuards)(accessToken_guard_1.AccessTokenGuard),
     (0, common_1.Get)('products'),
+    __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], RationsController.prototype, "getProducts", null);
 RationsController = __decorate([

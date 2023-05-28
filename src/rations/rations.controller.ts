@@ -47,8 +47,10 @@ export class RationsController {
 
     @ApiOperation({ summary: 'Выдача всех продуктов' })
     @ApiResponse({ status: 200, type: [Product] })
+    @UseGuards(AccessTokenGuard)
     @Get('products')
-    async getProducts() {
-        return this.rationsService.getProducts()
+    async getProducts(@Request() req) {
+        const { id } = req.user
+        return this.rationsService.getProducts(id)
     }
 }
