@@ -12,15 +12,23 @@ export class RationsService {
     }
 
     async getRationsByIds(ids: string[] | Ration[]): Promise<Ration[]> {
+
         return fetch('http://generator:8000/getRationByIds', {
             method: 'POST',
-            body: JSON.stringify(ids),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(ids.map(el => el.rationId)),
         }).then((res) => res.json())
     }
 
     async saveSelectedRation(ration: Ration): Promise<string | Ration> {
+        console.log(JSON.stringify(ration))
         return fetch('http://generator:8000/createRation', {
             method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(ration),
         }).then((res) => res.json())
     }
@@ -38,7 +46,7 @@ export class RationsService {
             calories =
                 (447.593 + 9.247 * weight + 3.098 * height - 4.33 * age) * 1.375
         }
-        return fetch(`http://generator:8000/generateRation/${calories}`).then(
+        return fetch(`http://generator:8000/generateRation/${Math.floor(calories)}`).then(
             (res) => res.json(),
         )
     }
@@ -48,13 +56,16 @@ export class RationsService {
     }
 
     async getFullUserInfo(id: string): Promise<User> {
-        const userFromDB = await this.usersService.findByID(id)
-        const triedRations = await this.getRationsByIds(userFromDB.triedRations)
+        const user = await this.usersService.findByID(id)
+        const triedRations = await this.getRationsByIds(user.triedRations)
+        const userFromDB = user.toObject()
         for (let i = 0; i < triedRations.length; i++) {
-            userFromDB.triedRations[i] = Object.assign(
-                userFromDB.triedRations[i],
-                triedRations[i],
-            )
+            // console.log(userFromDB.triedRations[i], triedRations[i])
+            userFromDB.triedRations[i] = {
+                ...(userFromDB.triedRations[i]),
+                ...(triedRations[i])
+            }
+            console.log(userFromDB.triedRations[i])
         }
         return userFromDB
     }
@@ -64,7 +75,7 @@ export class RationsService {
         const user = await this.usersService.findByID(id)
         user.triedRations.push({
             rationId: rationId,
-            date: new Date(),
+            date: Date.now(),
         })
         return user.save()
     }
