@@ -1,4 +1,4 @@
-import { Ration } from './models/Ration';
+import { Product, Ration } from './models/Ration';
 import { RationsService } from './rations.service';
 import { User } from 'src/users/schemas/user.schema';
 export declare class RationsController {
@@ -8,4 +8,5 @@ export declare class RationsController {
     generateRation(req: any): Promise<Ration>;
     getFullInfo(req: any): Promise<User>;
     confirmRation(req: any, ration: Ration): Promise<User>;
+    getProducts(): Promise<Product[]>;
 }

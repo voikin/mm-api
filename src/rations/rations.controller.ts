@@ -44,4 +44,11 @@ export class RationsController {
         const { id } = req.user
         return this.rationsService.confirmRation(id, ration)
     }
+
+    @ApiOperation({ summary: 'Выдача всех продуктов' })
+    @ApiResponse({ status: 200, type: [Product] })
+    @Get('products')
+    async getProducts() {
+        return this.rationsService.getProducts()
+    }
 }
