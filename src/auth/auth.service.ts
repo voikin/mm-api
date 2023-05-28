@@ -33,7 +33,7 @@ export class AuthService {
             activationLink,
             password: hashPassword,
         })
-        await this.mailService.sendActivationMail(
+        return this.mailService.sendActivationMail(
             newUser.email,
             `${process.env.API_URL}/auth/activate/${activationLink}`,
         )

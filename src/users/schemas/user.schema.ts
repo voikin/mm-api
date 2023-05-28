@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsEmail, IsString } from 'class-validator'
 import { Document } from 'mongoose'
+import { Ration } from 'src/rations/models/Ration'
 
 export type UserDocument = User & Document
 
@@ -45,6 +46,24 @@ export class User {
     })
     @Prop()
     refreshToken: string
+
+    @Prop()
+    triedRations: string[] | Ration[]
+
+    @Prop()
+    preferences: string[]
+
+    @Prop()
+    age: number
+
+    @Prop()
+    height: number
+
+    @Prop()
+    weight: number
+
+    @Prop()
+    sex: boolean
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
