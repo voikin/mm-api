@@ -7,10 +7,15 @@ import {
     Param,
     Patch,
     Post,
+    Put,
+    Req,
+    Request,
+    UseGuards,
 } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { User, UserDocument } from './schemas/user.schema'
 import { UserDto } from './dto/create-user.dto'
+import { AccessTokenGuard } from 'src/auth/accessToken.guard'
 
 @ApiTags('Пользователи')
 @Controller('users')
@@ -40,12 +45,15 @@ export class UsersController {
 
     @ApiOperation({ summary: 'Updating users by id' })
     @ApiResponse({ status: 201, type: User })
-    @Patch(':id')
+    @Patch()
+    @UseGuards(AccessTokenGuard)
     async update(
-        @Param('id') id: string,
+        @Request() req,
         @Body() updateDto: UserDto,
     ): Promise<UserDocument> {
-        return this.usersService.update(id, updateDto)
+        const userId = req.user.id
+        console.log(req);
+        return this.usersService.update(userId, updateDto)
     }
 
     @ApiOperation({ summary: 'Deleting user by id' })
@@ -53,5 +61,19 @@ export class UsersController {
     @Delete(':id')
     async delete(@Param('id') id: string): Promise<UserDocument> {
         return this.usersService.delete(id)
+    }
+
+    @Put('preference/:pref')
+    @UseGuards(AccessTokenGuard)
+    async addPreference(@Request() req, @Param('pref') preference: string) {
+        const {id} = req.user
+        return this.usersService.addPreference(id, preference)
+    }
+
+    @Delete('preference/:pref')
+    @UseGuards(AccessTokenGuard)
+    async removePreference(@Request() req, @Param('pref') preference: string) {
+        const {id} = req.user
+        return this.usersService.removePreference(id, preference)
     }
 }

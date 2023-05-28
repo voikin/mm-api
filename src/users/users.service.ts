@@ -3,11 +3,12 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
 import { User, UserDocument } from './schemas/user.schema'
 import { UserDto } from './dto/create-user.dto'
+import { RationsService } from 'src/rations/rations.service'
 
 @Injectable()
 export class UsersService {
     constructor(
-        @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+        @InjectModel(User.name) private readonly userModel: Model<UserDocument>
     ) {}
 
     async create(userDto: UserDto): Promise<UserDocument> {
@@ -34,7 +35,8 @@ export class UsersService {
     }
 
     async update(id: string, updateDto: UserDto): Promise<UserDocument> {
-        return this.userModel.findByIdAndUpdate(id, updateDto).exec()
+        await this.userModel.findByIdAndUpdate(id, updateDto).exec()
+        return this.userModel.findById(id)
     }
 
     async delete(id: string): Promise<UserDocument> {
@@ -59,5 +61,17 @@ export class UsersService {
         }
         user.isActivated = true
         await user.save()
+    }
+
+    async addPreference(id:string, preference: string) {
+        const user = await this.findByID(id)
+        user.preferences.push(preference)
+        return user.save()
+    }
+
+    async removePreference(id:string, preference: string) {
+        const user = await this.findByID(id)
+        user.preferences = user.preferences.filter(pref => pref !== preference)
+        return user.save()
     }
 }
