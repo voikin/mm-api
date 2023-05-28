@@ -2,9 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { ApiProperty } from '@nestjs/swagger'
 import { IsBoolean, IsEmail, IsString } from 'class-validator'
 import { Document } from 'mongoose'
+import { type } from 'os'
+import { Ration } from 'src/rations/models/Ration'
 
 export type UserDocument = User & Document
-
 @Schema()
 export class User {
     @ApiProperty({
@@ -24,17 +25,18 @@ export class User {
 
     @ApiProperty({
         example: true,
-        description: 'user has been activated or not'
+        description: 'user has been activated or not',
     })
-    @IsBoolean({message: 'isActivated must be boolean type'})
-    @Prop({default: false})
+    @IsBoolean({ message: 'isActivated must be boolean type' })
+    @Prop({ default: false })
     isActivated: boolean
 
     @ApiProperty({
-        example: 'njq9Na8MVPx5X8/jAY/vWx77RI+Rx7ZQ14UOfQ/IqJ6KVSTcljpR1+1inNoQleODm7pvZv49Yt8oWt47SUpmzQ',
-        description: 'unique link to verify user'
+        example:
+            'njq9Na8MVPx5X8/jAY/vWx77RI+Rx7ZQ14UOfQ/IqJ6KVSTcljpR1+1inNoQleODm7pvZv49Yt8oWt47SUpmzQ',
+        description: 'unique link to verify user',
     })
-    @IsString({message: 'activation link must be string type'})
+    @IsString({ message: 'activation link must be string type' })
     @Prop()
     activationLink: string
 
@@ -45,6 +47,24 @@ export class User {
     })
     @Prop()
     refreshToken: string
+
+    @Prop({ type: [{ rationId: String, date: Date }] })
+    triedRations: any
+
+    @Prop()
+    preferences: string[]
+
+    @Prop()
+    age: number
+
+    @Prop()
+    height: number
+
+    @Prop()
+    weight: number
+
+    @Prop()
+    sex: boolean
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

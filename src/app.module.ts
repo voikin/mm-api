@@ -5,8 +5,8 @@ import { UsersModule } from './users/users.module'
 import { MailModule } from './auth/mail/mail.module'
 import { MailService } from './auth/mail/mail.service'
 import { AuthModule } from './auth/auth.module'
-import { RouterModule } from './router/router.module'
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface'
+import { RationsModule } from './rations/rations.module';
 import * as cors from 'cors'
 @Module({
     imports: [
@@ -24,7 +24,7 @@ import * as cors from 'cors'
         UsersModule,
         AuthModule,
         MailModule,
-        RouterModule,
+        RationsModule,
     ],
     providers: [MailService],
 })
