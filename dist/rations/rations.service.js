@@ -22,12 +22,19 @@ let RationsService = class RationsService {
     async getRationsByIds(ids) {
         return fetch('http://generator:8000/getRationByIds', {
             method: 'POST',
-            body: JSON.stringify(ids),
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(ids.map(el => el.rationId)),
         }).then((res) => res.json());
     }
     async saveSelectedRation(ration) {
+        console.log(JSON.stringify(ration));
         return fetch('http://generator:8000/createRation', {
             method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(ration),
         }).then((res) => res.json());
     }
@@ -43,7 +50,7 @@ let RationsService = class RationsService {
             calories =
                 (447.593 + 9.247 * weight + 3.098 * height - 4.33 * age) * 1.375;
         }
-        return fetch(`http://generator:8000/generateRation/${calories}`).then((res) => res.json());
+        return fetch(`http://generator:8000/generateRation/${Math.floor(calories)}`).then((res) => res.json());
     }
     async getProducts(id) {
         const user = await this.usersService.findByID(id);
@@ -51,10 +58,12 @@ let RationsService = class RationsService {
         return products.filter((product) => !user.preferences.includes(product));
     }
     async getFullUserInfo(id) {
-        const userFromDB = await this.usersService.findByID(id);
-        const triedRations = await this.getRationsByIds(userFromDB.triedRations);
+        const user = await this.usersService.findByID(id);
+        const triedRations = await this.getRationsByIds(user.triedRations);
+        const userFromDB = user.toObject();
         for (let i = 0; i < triedRations.length; i++) {
-            userFromDB.triedRations[i] = Object.assign(userFromDB.triedRations[i], triedRations[i]);
+            userFromDB.triedRations[i] = Object.assign(Object.assign({}, (userFromDB.triedRations[i])), (triedRations[i]));
+            console.log(userFromDB.triedRations[i]);
         }
         return userFromDB;
     }
